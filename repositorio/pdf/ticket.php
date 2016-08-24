@@ -15,7 +15,7 @@ class RTicket extends tFPDF{
 		$this->AddFont('Sans','U', 'DejaVuSans-Oblique.ttf', true);
 		$this->AddFont('Sans','BU', 'DejaVuSans-BoldOblique.ttf', true);
 		$this->cleanFiles();
-		$this->SetMargins(2, 0, 2);
+		$this->SetMargins(2, 0, 5);
 		
 		$this->getConfiguracion();
 		$this->configuracion["tamañoFuente"] = 8;
@@ -75,17 +75,23 @@ class RTicket extends tFPDF{
 		$this->Ln(3);
 		$this->Cell(0, 3, "=================================", 0, 1, 'C');
 		$this->SetFont('Arial', 'B', $this->configuracion['tamañoFuente'] + 4);
-		$this->Cell(40, 3, "Total", 0, 0, 'L');
+		$this->Cell(30, 3, "Total", 0, 0, 'L');
 		$this->Cell(0, 3, sprintf("%0.2f", $subtotal), 0, 1, 'R');
 		
 		$this->SetFont('Arial', '', $this->configuracion['tamañoFuente']);
 		
-		if ($datos['head']['IVA'] == 0){
-			$this->Cell(40, 3, "Neto", 0, 0, 'L');
+		if ($datos['head']['IVA'] != 0){
+			$this->Cell(30, 3, "Neto", 0, 0, 'L');
 			$this->Cell(0, 3, sprintf("%0.2f", $subtotal * 1.16), 0, 1, 'R');
 			
-			$this->Cell(40, 3, "IVA 16%", 0, 0, 'L');
+			$this->Cell(30, 3, "IVA 16%", 0, 0, 'L');
 			$this->Cell(0, 3, sprintf("%0.2f", $subtotal * 0.16), 0, 1, 'R');
+		}else{
+			$this->Cell(30, 3, "Neto", 0, 0, 'L');
+			$this->Cell(0, 3, sprintf("%0.2f", $subtotal), 0, 1, 'R');
+			
+			$this->Cell(30, 3, "IVA 16%", 0, 0, 'L');
+			$this->Cell(0, 3, sprintf("%0.2f", 0.00), 0, 1, 'R');
 		}
 		
 		$this->Ln(5);

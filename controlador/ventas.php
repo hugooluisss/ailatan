@@ -23,7 +23,7 @@ switch($objModulo->getId()){
 				$datos = array();
 				$rs = $db->Execute("select * from tabla_clientes where folio = ".$_POST['folio']);
 				$datos["head"] = $rs->fields;
-				
+				$datos["head"]["IVA"] = $_POST['iva'];
 				$rs2 = $db->Execute("select product_name, a.unidades, total from tabla_clientes a join tabla_productos b using(id_producto) where a.folio = ".$_POST['folio']);
 				$datos["detalle"] = array();
 				while(!$rs2->EOF){

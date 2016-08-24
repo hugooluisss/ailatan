@@ -20,6 +20,7 @@ $(document).ready(function(){
 				
 				$.post("cventas", {
 					"folio": el.folio,
+					"iva": $("#selIVA").val(),
 					"action": "generarTicket"
 				}, function( data ) {
 					btn.prop("disabled", false);
