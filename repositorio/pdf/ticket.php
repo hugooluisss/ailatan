@@ -80,19 +80,17 @@ class RTicket extends tFPDF{
 		
 		$this->SetFont('Arial', '', $this->configuracion['tamañoFuente']);
 		
-		if ($datos['head']['IVA'] != 0){
-			$this->Cell(30, 3, "Neto", 0, 0, 'L');
-			$this->Cell(0, 3, sprintf("%0.2f", $subtotal * 1.16), 0, 1, 'R');
+		$porIVA = ($datos['head']['IVA'] == 1)?0.16:0;
+		
+		$total = $subtotal;
+		$neto = $total/(1+$porIVA);
+		$iva = $total - $neto;
+		
+		$this->Cell(30, 3, "Neto", 0, 0, 'L');
+		$this->Cell(0, 3, sprintf("%0.2f", $neto), 0, 1, 'R');
 			
-			$this->Cell(30, 3, "IVA 16%", 0, 0, 'L');
-			$this->Cell(0, 3, sprintf("%0.2f", $subtotal * 0.16), 0, 1, 'R');
-		}else{
-			$this->Cell(30, 3, "Neto", 0, 0, 'L');
-			$this->Cell(0, 3, sprintf("%0.2f", $subtotal), 0, 1, 'R');
-			
-			$this->Cell(30, 3, "IVA 16%", 0, 0, 'L');
-			$this->Cell(0, 3, sprintf("%0.2f", 0.00), 0, 1, 'R');
-		}
+		$this->Cell(30, 3, "IVA 16%", 0, 0, 'L');
+		$this->Cell(0, 3, sprintf("%0.2f", $iva), 0, 1, 'R');
 		
 		$this->Ln(5);
 		$this->Cell(0, 3, utf8_decode("Fecha: ".$datos['head']['fechas']." Hora: ".$datos['head']['time']), 0, 1, 'C');
