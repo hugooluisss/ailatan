@@ -10,7 +10,7 @@
 		<link rel="stylesheet/less" type="text/css" href="{$PAGE.ruta}build/less/AdminLTE.less" />
 		<link rel="stylesheet/less" type="text/css" href="{$PAGE.ruta}build/less/skins/_all-skins.less" />
 		{else}
-		<link rel="stylesheet" href="{$PAGE.ruta}dist/css/AdminLTE.min.css">
+		<link rel="stylesheet" href="{$PAGE.ruta}dist/css/AdminLTE.css">
 		<link rel="stylesheet" type="text/css" href="{$PAGE.ruta}dist/css/skins/_all-skins.css" />
 		{/if}
 
